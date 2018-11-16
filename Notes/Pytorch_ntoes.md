@@ -328,11 +328,165 @@ def cross_entropy(Y, P):
 
 ## 21- Multi-Class Cross Entropy 
 
+
+
 ## 22- Logistic Regression  
 
+# Logistic Regression
+
+Now, we're finally ready for one of the most popular and useful algorithms in Machine Learning, and the building block of all that constitutes Deep Learning. The **Logistic Regression** Algorithm. And it basically goes like this:
+
+- Take your data
+- Pick a random model
+- Calculate the error
+- Minimize the error, and obtain a better model
+- Enjoy!
+
+### Calculating the Error Function
+
+Let's dive into the details. The next video will show you how to calculate an error function
+
 ## 23- Gradient Descent 
+
+In this lesson, we'll learn the principles and the math behind the gradient descent algorithm.
+
+# Gradient Calculation
+
+In the last few videos, we learned that in order to minimize the error function, we need to take some derivatives. So let's get our hands dirty and actually compute the derivative of the error function. The first thing to notice is that the sigmoid function has a really nice derivative. Namely,
+
+\sigma'(x) = \sigma(x) (1-\sigma(x))σ′(x)=σ(x)(1−σ(x))
+
+The reason for this is the following, we can calculate it using the quotient formula:
+
+
+
+
+
+![img](https://d17h27t6h515a5.cloudfront.net/topher/2017/May/5910e6c6_codecogseqn-49/codecogseqn-49.gif)
+
+
+
+
+
+And now, let's recall that if we have mm points labelled x^{(1)}, x^{(2)}, \ldots, x^{(m)},x(1),x(2),…,x(m), the error formula is:
+
+E = -\frac{1}{m} \sum_{i=1}^m \left( y_i \ln(\hat{y_i}) + (1-y_i) \ln (1-\hat{y_i}) \right)E=−m1∑i=1m(yiln(yi^)+(1−yi)ln(1−yi^))
+
+where the prediction is given by \hat{y_i} = \sigma(Wx^{(i)} + b).yi^=σ(Wx(i)+b).
+
+Our goal is to calculate the gradient of E,E, at a point x = (x_1, \ldots, x_n),x=(x1,…,xn), given by the partial derivatives
+
+\nabla E =\left(\frac{\partial}{\partial w_1}E, \cdots, \frac{\partial}{\partial w_n}E, \frac{\partial}{\partial b}E \right)∇E=(∂w1∂E,⋯,∂wn∂E,∂b∂E)
+
+To simplify our calculations, we'll actually think of the error that each point produces, and calculate the derivative of this error. The total error, then, is the average of the errors at all the points. The error produced by each point is, simply,
+
+E = - y \ln(\hat{y}) - (1-y) \ln (1-\hat{y})E=−yln(y^)−(1−y)ln(1−y^)
+
+In order to calculate the derivative of this error with respect to the weights, we'll first calculate \frac{\partial}{\partial w_j} \hat{y}.∂wj∂y^. Recall that \hat{y} = \sigma(Wx+b),y^=σ(Wx+b), so:
+
+
+
+
+
+![img](https://d17h27t6h515a5.cloudfront.net/topher/2017/May/590eac24_codecogseqn-43/codecogseqn-43.gif)
+
+
+
+
+
+The last equality is because the only term in the sum which is not a constant with respect to w_jwj is precisely w_j x_j,wjxj, which clearly has derivative x_j.xj.
+
+Now, we can go ahead and calculate the derivative of the error EE at a point x,x, with respect to the weight w_j.wj.
+
+
+
+
+
+![img](https://s3.amazonaws.com/video.udacity-data.com/topher/2018/January/5a716f3e_codecogseqn-60-2/codecogseqn-60-2.png)
+
+
+
+
+
+A similar calculation will show us that
+
+
+
+
+
+![img](https://d17h27t6h515a5.cloudfront.net/topher/2017/September/59b75d1d_codecogseqn-58/codecogseqn-58.gif)
+
+
+
+
+
+This actually tells us something very important. For a point with coordinates (x_1, \ldots, x_n),(x1,…,xn), label y,y, and prediction \hat{y},y^, the gradient of the error function at that point is \left(-(y - \hat{y})x_1, \cdots, -(y - \hat{y})x_n, -(y - \hat{y}) \right).(−(y−y^)x1,⋯,−(y−y^)xn,−(y−y^)). In summary, the gradient is
+
+\nabla E = -(y - \hat{y}) (x_1, \ldots, x_n, 1).∇E=−(y−y^)(x1,…,xn,1).
+
+If you think about it, this is fascinating. The gradient is actually a scalar times the coordinates of the point! And what is the scalar? Nothing less than a multiple of the difference between the label and the prediction. What significance does this have?
+
+# Gradient Descent Step
+
+Therefore, since the gradient descent step simply consists in subtracting a multiple of the gradient of the error function at every point, then this updates the weights in the following way:
+
+w_i' \leftarrow w_i -\alpha [-(y - \hat{y}) x_i],wi′←wi−α[−(y−y^)xi],
+
+which is equivalent to
+
+w_i' \leftarrow w_i + \alpha (y - \hat{y}) x_i.wi′←wi+α(y−y^)xi.
+
+Similarly, it updates the bias in the following way:
+
+b' \leftarrow b + \alpha (y - \hat{y}),b′←b+α(y−y^),
+
+*Note:* Since we've taken the average of the errors, the term we are adding should be \frac{1}{m} \cdot \alpham1⋅α instead of \alpha,α, but as \alphaα is a constant, then in order to simplify calculations, we'll just take \frac{1}{m} \cdot \alpham1⋅α to be our learning rate, and abuse the notation by just calling it \alpha.α.
 
 ## 24- Logistic Regression Algorithm 
 
 ## 25- Pre -Notebook: Gradient Descent 
+
+## 31 Neural Network Architecture
+
+Ok, so we're ready to put these building blocks together, and build great Neural Networks! (Or Multi-Layer Perceptrons, however you prefer to call them.)
+
+This first two videos will show us how to combine two perceptrons into a third, more complicated one.
+
+here how to create linear model, we are going to combine two linear model into one model or combine regions 
+
+We will use sigmoid function to combine two linear model. 
+
+
+
+### Multiple layers
+
+Now, not all neural networks look like the one above. They can be way more complicated! In particular, we can do the following things:
+
+- Add more nodes to the input, hidden, and output layers.
+- Add more layers.
+
+### Multi-Class Classification
+
+And here we elaborate a bit more into what can be done if our neural network needs to model data with more than one output.
+
+## 32 FeedForward 
+
+Feedforward is the process neural networks use to turn the input into an output. Let's study it more carefully, before we dive into how to train the networks.
+
+# Error Function
+
+Just as before, neural networks will produce an error function, which at the end, is what we'll be minimizing. The following video shows the error function for a neural network.
+
+## 32 Backprogation 
+
+Now, we're ready to get our hands into training a neural network. For this, we'll use the method known as **backpropagation**. In a nutshell, backpropagation will consist of:
+
+- Doing a feedforward operation.
+- Comparing the output of the model with the desired output.
+- Calculating the error.
+- Running the feedforward operation backwards (backpropagation) to spread the error to each of the weights.
+- Use this to update the weights, and get a better model.
+- Continue this until we have a model that is good.
+
+Sounds more complicated than what it actually is. Let's take a look in the next few videos. The first video will show us a conceptual interpretation of what backpropagation is.
 
