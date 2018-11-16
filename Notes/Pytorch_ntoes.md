@@ -186,6 +186,63 @@ Then click on `test run` to graph the solution that the perceptron algorithm giv
 
 Feel free to play with the parameters of the algorithm (number of epochs, learning rate, and even the randomizing of the initial parameters) to see how your initial conditions can affect the solution!
 
+
+
+```python
+import numpy as np
+# Setting the random seed, feel free to change it and see different solutions.
+np.random.seed(42)
+
+def stepFunction(t):
+    if t >= 0:
+        return 1
+    return 0
+
+def prediction(X, W, b):
+    return stepFunction((np.matmul(X,W)+b)[0])
+
+# TODO: Fill in the code below to implement the perceptron trick.
+# The function should receive as inputs the data X, the labels y,
+# the weights W (as an array), and the bias b,
+# update the weights and bias W, b, according to the perceptron algorithm,
+# and return W and b.
+def perceptronStep(X, y, W, b, learn_rate = 0.01):
+    # Fill in code
+    def perceptronStep(X, y, W, b, learn_rate = 0.01):
+    for i in range(len(X)):
+        y_hat = prediction(X[i],W,b)
+        if y[i]-y_hat == 1:
+            W[0] += X[i][0]*learn_rate
+            W[1] += X[i][1]*learn_rate
+            b += learn_rate
+        elif y[i]-y_hat == -1:
+            W[0] -= X[i][0]*learn_rate
+            W[1] -= X[i][1]*learn_rate
+            b -= learn_rate
+    return W, b
+    
+# This function runs the perceptron algorithm repeatedly on the dataset,
+# and returns a few of the boundary lines obtained in the iterations,
+# for plotting purposes.
+# Feel free to play with the learning rate and the num_epochs,
+# and see your results plotted below.
+def trainPerceptronAlgorithm(X, y, learn_rate = 0.01, num_epochs = 25):
+    x_min, x_max = min(X.T[0]), max(X.T[0])
+    y_min, y_max = min(X.T[1]), max(X.T[1])
+    W = np.array(np.random.rand(2,1))
+    b = np.random.rand(1)[0] + x_max
+    # These are the solution lines that get plotted below.
+    boundary_lines = []
+    for i in range(num_epochs):
+        # In each epoch, we apply the perceptron step.
+        W, b = perceptronStep(X, y, W, b, learn_rate)
+        boundary_lines.append((-W[0]/W[1], -b/W[1]))
+    return boundary_lines
+
+```
+
+
+
 ## 11- Non-Linear Regions 
 
 ## 12- Error Functions 
@@ -194,9 +251,88 @@ Feel free to play with the parameters of the algorithm (number of epochs, learni
 
 ## 14- Discrete vs Continous 
 
+the answer for the lessons 2.14
+
+![exp01](/Users/mahamatnouralimai/Desktop/1-2018:2019/pytorch_udacity_scholarship_learning_notes/Notes/exp01.PNG)
+
 ## 15- Softmax 
+
+```python
+#Formula of softmax function
+
+import numpy as np
+
+# Write a function that takes as input a list of numbers, and returns
+# the list of values given by the softmax function.
+def softmax(L):
+    expL = np.exp(L)
+    sumExpL = sum(expL)
+    result = []
+    for i in expL:
+        result.append(i*1.0/sumExpL)
+    return result
+    
+```
+
+
 
 ## 16- One- Hot Encoding 
 
+
+
 ## 17- Maximum Likelihood
+
+# Maximum Likelihood
+
+Probability will be one of our best friends as we go through Deep Learning. In this lesson, we'll see how we can use probability to evaluate (and improve!) our models.
+
+## 18- Maximizing Probablities 
+
+# Maximizing Probabilities
+
+In this lesson and quiz, we will learn how to maximize a probability, using some math. Nothing more than high school math, so get ready for a trip down memory lane!
+
+*Correction:* At 2:18, the top right point should be labelled `-log(0.7)` instead of `-log(0.2)`.
+
+## 19- Cross- Entropy 1
+
+a good model will give low cross entropy. 
+
+a bad model will give us high cross entropy 
+
+goal is to minimizing the cross entropy 
+
+## 20- Cross- Entropy 2
+
+# Cross-Entropy
+
+So we're getting somewhere, there's definitely a connection between probabilities and error functions, and it's called **Cross-Entropy**. This concept is tremendously popular in many fields, including Machine Learning. Let's dive more into the formula, and actually code it!
+
+
+
+```python
+import numpy as np
+# the formula for cross-entropy 
+# Write a function that takes as input two lists Y, P,
+# and returns the float corresponding to their cross-entropy.
+def cross_entropy(Y, P):
+    Y = np.float_(Y)
+    P = np.float_(P)
+    return -np.sum(Y * np.log(P) + (1 - Y) * np.log(1 - P))
+    
+```
+
+
+
+
+
+## 21- Multi-Class Cross Entropy 
+
+## 22- Logistic Regression  
+
+## 23- Gradient Descent 
+
+## 24- Logistic Regression Algorithm 
+
+## 25- Pre -Notebook: Gradient Descent 
 
